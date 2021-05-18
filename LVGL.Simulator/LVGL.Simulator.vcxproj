@@ -167,7 +167,6 @@
     <ClInclude Include="lvgl\lv_conf_template.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\huazheng\Desktop\lv_vending_machine_qr_code.c" />
     <ClCompile Include="lvgl\examples\porting\lv_port_disp_template.c" />
     <ClCompile Include="lvgl\examples\porting\lv_port_fs_template.c" />
     <ClCompile Include="lvgl\examples\porting\lv_port_indev_template.c" />
@@ -313,6 +312,7 @@
     <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_img_package.c" />
     <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_img_shop.c" />
     <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_img_wifi.c" />
+    <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_qr_code.c" />
     <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_wallpaper1.c" />
     <ClCompile Include="my_apps\src\vending_machine\vending_machine.c" />
     <ClCompile Include="my_apps\src\vending_machine\vending_machine_theme.c" />

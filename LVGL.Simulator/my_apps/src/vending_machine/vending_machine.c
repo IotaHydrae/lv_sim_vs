@@ -267,7 +267,6 @@ LV_EVENT_CB_DECLARE(store_open_event_cb)
     
 }
 
-<<<<<<< HEAD
 static int atoi(char s[])
 {
     int i, n;
@@ -336,10 +335,12 @@ LV_EVENT_CB_DECLARE(btn_pay_ok_handler)
 
 LV_EVENT_CB_DECLARE(goods_pay)
 {
+    LV_IMG_DECLARE(lv_vending_machine_qr_code);
     char* str_pay_info = "请扫描二维码支付";
     char* str_pay_ok = "支付完成";
     char* str_pay_help = "支付遇到问题";
-    LV_IMG_DECLARE(lv_vending_machine_qr_code);
+    
+
     if (e == LV_EVENT_CLICKED) {
         //vending_machine_anim_out_all(lv_scr_act(), 0);
         pay_screen = lv_obj_create(NULL, NULL);
@@ -382,22 +383,22 @@ LV_EVENT_CB_DECLARE(goods_pay)
         /*pay ok btn*/
         lv_obj_t* btn_pay_ok = lv_btn_create(pay_screen, NULL);
         lv_obj_align(btn_pay_ok, pay_screen, LV_ALIGN_CENTER, -60, 70);
-        lv_obj_set_size(btn_pay_ok, 15 * sizeof(str_pay_ok), 50);
+        lv_obj_set_size(btn_pay_ok, 24 * sizeof(str_pay_ok), 50);
         lv_obj_set_event_cb(btn_pay_ok, btn_pay_ok_handler);
         lv_obj_t* lbl_btn_pay_ok = lv_label_create(btn_pay_ok, NULL);
-        lv_label_set_text(lbl_btn_pay_ok, "支付完成");
-        lv_label_set_long_mode(lbl_btn_pay_ok, LV_LABEL_LONG_BREAK);
+        lv_label_set_text(lbl_btn_pay_ok, str_pay_ok);
+        lv_label_set_long_mode(lbl_btn_pay_ok, LV_LABEL_LONG_DOT);
         lv_label_set_align(lbl_btn_pay_ok, LV_LABEL_ALIGN_CENTER);
         lv_obj_set_style_local_text_font(lbl_btn_pay_ok, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_theme_get_font_normal());
-        lv_obj_set_size(lbl_btn_pay_ok, 100, 50);
+        lv_obj_set_size(lbl_btn_pay_ok, 24 * sizeof(str_pay_ok), 50);
 
         /*pay help btn*/
         lv_obj_t* btn_pay_help = lv_btn_create(pay_screen, btn_pay_ok);
-        lv_obj_set_size(btn_pay_help, 18 * sizeof(str_pay_help), 50);
+        lv_obj_set_size(btn_pay_help, 24 * sizeof(str_pay_help), 50);
         lv_obj_align(btn_pay_help, btn_pay_ok, LV_ALIGN_OUT_RIGHT_MID, 30, 0);
         lv_obj_t* lbl_btn_pay_help = lv_label_create(btn_pay_help, lbl_btn_pay_ok);
-        lv_obj_set_size(lbl_btn_pay_help, 18 * sizeof(str_pay_help), 50);
-        lv_label_set_text(lbl_btn_pay_help, "支付遇到问题");
+        lv_obj_set_size(lbl_btn_pay_help, 24 * sizeof(str_pay_help), 50);
+        lv_label_set_text(lbl_btn_pay_help, str_pay_help);
     }
 }
 
@@ -430,16 +431,14 @@ static void goods_refresh_helper(lv_obj_t *obj)
  * @param obj 
  * @param event 
 */
-LV_EVENT_CB_DECLARE(goods_handler)
-=======
+LV_EVENT_CB_DECLARE(goods_handler);
 /*A event handler to make list like radio box*/
 static void goods_handler(lv_obj_t* obj, lv_event_t event)
->>>>>>> 837cbd0366bfb36315eb34b76fc98d77b69f0c44
 {
     /*get current btn's parent*/
     lv_obj_t* list = lv_obj_get_parent(obj);
     
-    if (e == LV_EVENT_CLICKED) {
+    if (event == LV_EVENT_CLICKED) {
 
         /*get the first btn in list*/
         lv_obj_t* tmp_btn = lv_obj_get_child_back(list, NULL);
@@ -456,13 +455,12 @@ static void goods_handler(lv_obj_t* obj, lv_event_t event)
             tmp_btn = lv_obj_get_child_back(list, tmp_btn);
         }
 
-<<<<<<< HEAD
         /*finally call goods refresh func*/
         goods_refresh_helper(obj);
-=======
+
         /*finally call refresh func for right view*/
         //goods_info_refresh_func()
->>>>>>> 837cbd0366bfb36315eb34b76fc98d77b69f0c44
+
     }
 }
 

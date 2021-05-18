@@ -887,7 +887,7 @@
     <ClCompile Include="my_apps\src\vending_machine\images\goods\lv_vending_machine_img_cola_150.c">
       <Filter>my_apps\src\vending_machine\images\goods</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\huazheng\Desktop\lv_vending_machine_qr_code.c">
+    <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_qr_code.c">
       <Filter>my_apps\src\vending_machine\images</Filter>
     </ClCompile>
   </ItemGroup>
