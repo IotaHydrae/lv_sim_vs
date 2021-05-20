@@ -20,6 +20,7 @@ extern "C" {
 #include "src/style_test/my_style_test.h"
 #include "src/theme_test/my_theme_test.h"
 /*FLT Project*/
+#include "src/FLT/FLT_Entry.h"
 
 /*********************
  *      DEFINES

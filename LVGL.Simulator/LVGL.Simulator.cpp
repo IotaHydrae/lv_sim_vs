@@ -24,6 +24,7 @@
 #include "lvgl/lvgl.h"
 #include "lv_examples/lv_examples.h"
 #include "my_apps/my_apps.h"
+#include "FLT/FLT_Entry.h"
 #include "lv_drivers/win32drv/win32drv.h"
 
 #if _MSC_VER >= 1200
@@ -61,7 +62,8 @@ int main()
     //my_style_test10();
     //my_style_test8();
     //my_theme_test2();
-    vending_machine();
+    //vending_machine();
+    FLT_Entry();
     //lv_demo_widgets();
     //lv_demo_benchmark();
     //lv_demo_keypad_encoder();

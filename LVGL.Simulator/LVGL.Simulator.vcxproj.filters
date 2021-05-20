@@ -106,6 +106,21 @@
     <Filter Include="my_apps\src\vending_machine\images\goods">
       <UniqueIdentifier>{b13640c2-6a55-4c1d-9c08-5ef606072c85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FLT">
+      <UniqueIdentifier>{2eac7102-e8d6-4b0b-9a76-a6e7c3a6ce29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLT\Applications">
+      <UniqueIdentifier>{42a4cfc8-6179-423c-bed6-88b184071ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLT\Applications\assets">
+      <UniqueIdentifier>{7127e671-a678-4cb5-affa-26979e1af673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLT\Applications\assets\desktop">
+      <UniqueIdentifier>{0980fb32-6e54-4205-915d-9be001d2c712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLT\Applications\assets\desktop\images">
+      <UniqueIdentifier>{1f329291-80b9-4dc3-8224-7012ef37698f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lvgl\examples\porting\lv_port_disp_template.h">
@@ -440,6 +455,18 @@
     </ClInclude>
     <ClInclude Include="my_apps\src\theme_test\my_theme_test.h">
       <Filter>my_apps\src\theme_test</Filter>
+    </ClInclude>
+    <ClInclude Include="FLT\FLT_Entry.h">
+      <Filter>FLT</Filter>
+    </ClInclude>
+    <ClInclude Include="FLT\FLT_theme.h">
+      <Filter>FLT</Filter>
+    </ClInclude>
+    <ClInclude Include="FLT\Applications\Applications.h">
+      <Filter>FLT\Applications</Filter>
+    </ClInclude>
+    <ClInclude Include="FLT\Applications\utils.h">
+      <Filter>FLT\Applications</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -890,6 +917,81 @@
     <ClCompile Include="my_apps\src\vending_machine\images\lv_vending_machine_qr_code.c">
       <Filter>my_apps\src\vending_machine\images</Filter>
     </ClCompile>
+    <ClCompile Include="FLT\FLT_Entry.c">
+      <Filter>FLT</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\FLT_theme.c">
+      <Filter>FLT</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\desktop.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\utils.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\ui_tools.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_home_manager.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_music.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_book.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_clock.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_movie.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_phone.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_setting.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_message.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_more.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi.c">
+      <Filter>FLT\Applications\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_ad0_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_book_category.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_movie_category.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_music_category.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_ad1_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_ad2_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_ad3_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_ad4_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\ad_pos0\desktop_coffe_night_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\desktop\images\ad_pos0\desktop_star_night_radius40.c">
+      <Filter>FLT\Applications\assets\desktop\images</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lvgl\.github\ISSUE_TEMPLATE\bug-report.md">
@@ -1086,6 +1188,9 @@
     </None>
     <None Include="my_apps\my_apps.mk">
       <Filter>my_apps</Filter>
+    </None>
+    <None Include="FLT\README.md">
+      <Filter>FLT</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
