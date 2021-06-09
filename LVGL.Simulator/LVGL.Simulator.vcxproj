@@ -193,7 +193,12 @@
     <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_setting.c" />
     <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi.c" />
     <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi_off.c" />
+    <ClCompile Include="FLT\Applications\clock_settings.c" />
     <ClCompile Include="FLT\Applications\desktop.c" />
+    <ClCompile Include="FLT\Applications\movie_player.c" />
+    <ClCompile Include="FLT\Applications\music_player.c" />
+    <ClCompile Include="FLT\Applications\read_center.c" />
+    <ClCompile Include="FLT\Applications\smart_manager.c" />
     <ClCompile Include="FLT\Applications\ui_tools.c" />
     <ClCompile Include="FLT\Applications\utils.c" />
     <ClCompile Include="FLT\FLT_Entry.c" />

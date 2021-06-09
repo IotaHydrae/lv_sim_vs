@@ -264,6 +264,14 @@ void FLT_show_messagebox(char *text,
         lv_anim_start(&a);
 }
 
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 void FLT_show_folder_content(lv_obj_t *origin, char *folder_name, 
 								lv_task_cb_t event_cb)
 {
@@ -282,8 +290,27 @@ void FLT_show_folder_content(lv_obj_t *origin, char *folder_name,
 	lv_obj_set_height(folder_content, 400);
 	lv_obj_add_style(folder_content,LV_OBJ_PART_MAIN, &FLT_style_mbox);
 	lv_obj_align(folder_content, obj, LV_ALIGN_CENTER, 0, 0);
-
+	
 	FLT_anim_open_folder_content(folder_content, 0);
+
+	lv_obj_t *lbl_folder = lv_label_create(folder_content, NULL);
+	lv_label_set_text(lbl_folder, folder_name);
+	lv_obj_align(lbl_folder, folder_content, LV_ALIGN_IN_TOP_LEFT, 200, 20);
+
+	lv_obj_t* tmp_folder_icon1 = lv_obj_get_child_back(origin, NULL);
+	lv_obj_t *folder_icon;
+	/*for each the list*/
+	for (int offset=0; tmp_folder_icon1 != NULL;offset+=20) {
+		/*pass current btn*/
+		printf("%d\n", lv_obj_get_height(tmp_folder_icon1));
+		folder_icon = lv_img_create(folder_content, tmp_folder_icon1);
+		lv_img_set_zoom(folder_icon, 256);
+		
+		lv_obj_align(folder_icon, folder_content, LV_ALIGN_IN_TOP_LEFT, offset*4, 50);
+		lv_img_set_auto_size(folder_icon, true);
+		tmp_folder_icon1 = lv_obj_get_child_back(origin, tmp_folder_icon1);
+	}
+
 	lv_obj_set_event_cb(folder_content, folder_content_event_handler);
 }
 

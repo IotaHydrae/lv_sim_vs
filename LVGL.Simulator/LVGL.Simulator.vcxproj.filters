@@ -995,6 +995,21 @@
     <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi_off.c">
       <Filter>FLT\Applications\assets</Filter>
     </ClCompile>
+    <ClCompile Include="FLT\Applications\smart_manager.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\clock_settings.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\movie_player.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\music_player.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
+    <ClCompile Include="FLT\Applications\read_center.c">
+      <Filter>FLT\Applications</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lvgl\.github\ISSUE_TEMPLATE\bug-report.md">

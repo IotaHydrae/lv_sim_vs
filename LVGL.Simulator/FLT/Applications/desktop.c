@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "ui_tools.h"
+#include "./Applications.h"
 #include "../../lv_examples/lv_examples.h"
 //-----------------------------------------------------------------------------
 //      Copyright © 2021 jensenhua. All rights reserved
@@ -551,30 +552,35 @@ LV_EVENT_CB_DECLARE(icon1_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, launching Smart Home Center.\n", __func__,lv_tick_get());
+		smart_manager();
 	}
 }
 LV_EVENT_CB_DECLARE(icon2_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, launching Music Player.\n", __func__,lv_tick_get());
+		music_player();
 	}
 }
 LV_EVENT_CB_DECLARE(icon3_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, launching Read Center.\n", __func__,lv_tick_get());
+		read_center();
 	}
 }
 LV_EVENT_CB_DECLARE(icon4_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, launching Movie Player.\n", __func__,lv_tick_get());
+		movie_player();
 	}
 }
 LV_EVENT_CB_DECLARE(icon5_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, launching Clock Settings.\n", __func__,lv_tick_get());
+		clock_settings();
 	}
 }
 
@@ -584,7 +590,7 @@ LV_EVENT_CB_DECLARE(folder_event_handler)
 		if (e == LV_EVENT_CLICKED){
 		printf("%s, %d, Openning Apps Folder.\n", __func__,lv_tick_get());
 
-		FLT_show_folder_content(obj, "更多应用",NULL);
+		FLT_show_folder_content(ui.folder, "更多应用",NULL);
 	}
 }
 
