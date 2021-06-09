@@ -992,6 +992,9 @@
     <ClCompile Include="FLT\Applications\assets_template\desktop\images\ad_pos0\desktop_star_night_radius40.c">
       <Filter>FLT\Applications\assets\desktop\images</Filter>
     </ClCompile>
+    <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi_off.c">
+      <Filter>FLT\Applications\assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lvgl\.github\ISSUE_TEMPLATE\bug-report.md">

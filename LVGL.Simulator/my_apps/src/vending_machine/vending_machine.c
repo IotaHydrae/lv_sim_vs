@@ -114,6 +114,9 @@ static lv_obj_t* goods_big_img;
 static lv_obj_t* goods_info_label;
 static lv_obj_t* lbl_goods_number;
 
+static uint32_t goods_count;
+static uint32_t current_goods_price;
+
 /**********************
 *      MACROS
 **********************/
@@ -281,7 +284,7 @@ static int atoi(char s[])
 
 static void inline goods_count_handler(lv_obj_t* obj, lv_event_t event)
 {
-    uint32_t goods_count = atoi(lv_label_get_text(lbl_goods_number));
+    goods_count = atoi(lv_label_get_text(lbl_goods_number));
     if (event == LV_EVENT_CLICKED || event == LV_EVENT_LONG_PRESSED_REPEAT) {
         lv_obj_t* label = lv_obj_get_child(obj, NULL);
         if (strcmp(lv_label_get_text(label), "-") == 0) {
@@ -289,7 +292,7 @@ static void inline goods_count_handler(lv_obj_t* obj, lv_event_t event)
             if (goods_count >= 1) {
                 --goods_count;
             }
-            printf("%s %d\n", lv_label_get_text(label), goods_count);
+            // printf("%s %d\n", lv_label_get_text(label), goods_count);
         }
         else {
             if (goods_count < 100) {
@@ -336,7 +339,6 @@ LV_EVENT_CB_DECLARE(btn_pay_ok_handler)
 LV_EVENT_CB_DECLARE(goods_pay)
 {
     LV_IMG_DECLARE(lv_vending_machine_qr_code);
-    char* str_pay_info = "请扫描二维码支付";
     char* str_pay_ok = "支付完成";
     char* str_pay_help = "支付遇到问题";
     
@@ -348,13 +350,13 @@ LV_EVENT_CB_DECLARE(goods_pay)
         lv_scr_load(pay_screen);
 
         lv_obj_t* btn_pay_info = lv_btn_create(pay_screen, NULL);
-        lv_obj_set_size(btn_pay_info, 32 * sizeof(str_pay_info), 20 * 2);
+        lv_obj_set_size(btn_pay_info, 32 * 20, 20 * 2);
 
 
         /*label info*/
         lv_obj_t* lbl_pay_info = lv_label_create(btn_pay_info, NULL);
         lv_label_set_long_mode(lbl_pay_info, LV_LABEL_LONG_SROLL_CIRC);
-        lv_obj_set_size(lbl_pay_info, 32 * sizeof(str_pay_info), 20 * 2);
+        lv_obj_set_size(lbl_pay_info, 32 * 20, 20 * 2);
         lv_label_set_align(lbl_pay_info, LV_LABEL_ALIGN_CENTER);
         /*local style for label pay info*/
         lv_obj_set_style_local_radius(lbl_pay_info, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, 5);
@@ -364,7 +366,8 @@ LV_EVENT_CB_DECLARE(goods_pay)
         lv_obj_set_style_local_text_font(lbl_pay_info, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_theme_get_font_title());
 
         /*text for label pay info*/
-        lv_label_set_text_fmt(lbl_pay_info, "%s", str_pay_info);
+        printf("%d,%d,total:%d\n", goods_count,current_goods_price,goods_count*current_goods_price);
+        lv_label_set_text_fmt(lbl_pay_info, "请扫描二维码支付%d元", goods_count*current_goods_price);
 
         /*alignment for label pay info*/
         lv_obj_align(btn_pay_info, pay_screen, LV_ALIGN_CENTER, 0, -lv_obj_get_height(pay_screen)/2.5);
@@ -382,7 +385,7 @@ LV_EVENT_CB_DECLARE(goods_pay)
         /*bottom  view*/
         /*pay ok btn*/
         lv_obj_t* btn_pay_ok = lv_btn_create(pay_screen, NULL);
-        lv_obj_align(btn_pay_ok, pay_screen, LV_ALIGN_CENTER, -60, 70);
+        lv_obj_align(btn_pay_ok, pay_screen, LV_ALIGN_CENTER, -150, 70);
         lv_obj_set_size(btn_pay_ok, 24 * sizeof(str_pay_ok), 50);
         lv_obj_set_event_cb(btn_pay_ok, btn_pay_ok_handler);
         lv_obj_t* lbl_btn_pay_ok = lv_label_create(btn_pay_ok, NULL);
@@ -391,11 +394,12 @@ LV_EVENT_CB_DECLARE(goods_pay)
         lv_label_set_align(lbl_btn_pay_ok, LV_LABEL_ALIGN_CENTER);
         lv_obj_set_style_local_text_font(lbl_btn_pay_ok, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_theme_get_font_normal());
         lv_obj_set_size(lbl_btn_pay_ok, 24 * sizeof(str_pay_ok), 50);
+        lv_obj_set_style_local_text_line_space(lbl_btn_pay_ok, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, 40);
 
         /*pay help btn*/
         lv_obj_t* btn_pay_help = lv_btn_create(pay_screen, btn_pay_ok);
         lv_obj_set_size(btn_pay_help, 24 * sizeof(str_pay_help), 50);
-        lv_obj_align(btn_pay_help, btn_pay_ok, LV_ALIGN_OUT_RIGHT_MID, 30, 0);
+        lv_obj_align(btn_pay_help, btn_pay_ok, LV_ALIGN_OUT_RIGHT_MID, 50, 0);
         lv_obj_t* lbl_btn_pay_help = lv_label_create(btn_pay_help, lbl_btn_pay_ok);
         lv_obj_set_size(lbl_btn_pay_help, 24 * sizeof(str_pay_help), 50);
         lv_label_set_text(lbl_btn_pay_help, str_pay_help);
@@ -420,10 +424,12 @@ static void goods_refresh_helper(lv_obj_t *obj)
     
     //lv_img_set_auto_size(goods_big_img, true);
     lv_img_set_zoom(goods_big_img, 512);
+    current_goods_price = (int)goods_price[i];
     lv_label_set_text_fmt(goods_info_label, "商品名称:\n%s\n\n更多信息:\n%s\n\n价格(元):\n%d\n",
                                             goods_name[i],
                                             goods_info[i],
-                                            (int)goods_price[i]);
+                                            current_goods_price);
+    
 }
 
 /**
@@ -544,6 +550,7 @@ static void store_open(uint32_t delay)
     goods_info_label = lv_label_create(rview, NULL);
     lv_label_set_long_mode(goods_info_label, LV_LABEL_LONG_CROP);
     lv_obj_set_size(goods_info_label, 150, 170);
+    current_goods_price = (int)goods_price[0];
     lv_label_set_text_fmt(goods_info_label, "商品名称:\n%s\n\n更多信息:\n%s\n\n价格(元):\n%d\n",
         goods_name[0],
         goods_info[0],

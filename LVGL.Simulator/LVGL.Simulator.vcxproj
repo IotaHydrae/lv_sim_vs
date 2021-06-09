@@ -57,6 +57,7 @@
       <Optimization Condition="'$(Configuration)'=='Release'">MinSpace</Optimization>
       <DisableSpecificWarnings>4214;4244;4013;4018;4090;4100;4127;4267;4389;4701;4702;</DisableSpecificWarnings>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</LanguageStandard_C>
+      <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</LanguageStandard_C>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -191,6 +192,7 @@
     <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_phone.c" />
     <ClCompile Include="FLT\Applications\assets_template\desktop\images\desktop_setting.c" />
     <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi.c" />
+    <ClCompile Include="FLT\Applications\assets_template\status_bar_wifi_off.c" />
     <ClCompile Include="FLT\Applications\desktop.c" />
     <ClCompile Include="FLT\Applications\ui_tools.c" />
     <ClCompile Include="FLT\Applications\utils.c" />

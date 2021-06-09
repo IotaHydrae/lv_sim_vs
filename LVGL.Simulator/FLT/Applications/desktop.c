@@ -1,5 +1,41 @@
 #include "utils.h"
 #include "ui_tools.h"
+#include "../../lv_examples/lv_examples.h"
+//-----------------------------------------------------------------------------
+//      Copyright © 2021 jensenhua. All rights reserved
+//
+//      @FileName   :  desktop.c
+//      @Author     :  jensenhua   
+//      @Version    :  v1.0.0
+//      @Date       :  21/05/23
+//      @Description:  
+//      @Others     :  
+//      @License    :  GNU General Public License, version 3 (GPL-3.0)
+//
+//
+//
+// FLT  Copyright (C) 2020  jessenhua (h1657802074@gmail.com) 
+//                                                                       
+// This file is part of FLT                                   
+//   ____ ____  _      __     _______  ___                               
+//  / ___|  _ \| |     \ \   / /___ / / _ \                              
+// | |  _| |_) | |      \ \ / /  |_ \| | | |                             
+// | |_| |  __/| |___    \ V /  ___) | |_| |                             
+//  \____|_|   |_____|    \_/  |____(_)___/                              
+//                                                                       
+// FLT is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by  
+// the Free Software Foundation, either version 3 of the License, or     
+// (at your option) any later version.                                   
+//                                                                       
+// This program is distributed in the hope that it will be useful, but   
+// WITHOUT ANY WARRANTY; without even the implied warranty of            
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     
+// General Public License for more details.                              
+//                                                                       
+// You should have received a copy of the GNU General Public License     
+// along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+//-----------------------------------------------------------------------------
 
 
 typedef struct {
@@ -55,6 +91,11 @@ static lv_obj_t * btn_ad_pos1;
 static lv_obj_t *img_ad_pos1;
 static lv_obj_t * label_ad1_pos1;
 
+static lv_task_t *task_update_statusbar;
+static lv_task_t *task_adver_pos0;
+static lv_task_t *task_adver_pos1;
+
+
 /*Prototype*/
 static void adver_pos0_update(lv_task_t *task);
 static void adver_pos0_init(void);
@@ -64,47 +105,79 @@ static void adver_pos1_init(void);
 LV_IMG_DECLARE(desktop_music_category);
 LV_IMG_DECLARE(desktop_movie_category);
 LV_IMG_DECLARE(desktop_book_category);
+LV_IMG_DECLARE(desktop_home_manager);
+LV_IMG_DECLARE(desktop_music);
+LV_IMG_DECLARE(desktop_book);
+LV_IMG_DECLARE(desktop_movie);
+LV_IMG_DECLARE(desktop_clock);
+
+LV_IMG_DECLARE(desktop_phone);
+LV_IMG_DECLARE(desktop_setting);
+LV_IMG_DECLARE(desktop_message);
+LV_IMG_DECLARE(desktop_more);
+
+LV_EVENT_CB_DECLARE(icon1_event_handler);
+LV_EVENT_CB_DECLARE(icon2_event_handler);
+LV_EVENT_CB_DECLARE(icon3_event_handler);
+LV_EVENT_CB_DECLARE(icon4_event_handler);
+LV_EVENT_CB_DECLARE(icon5_event_handler);
+LV_EVENT_CB_DECLARE(folder_event_handler);
 LV_EVENT_CB_DECLARE(btn_ad_pos0_event_handler);
 LV_EVENT_CB_DECLARE(btn_ad_pos1_event_handler);
 
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 static void __self_init()
 {
 	ui.theme = FLT_theme_init(FLT_COLOR_PRIMARY, FLT_COLOR_SECONDARY, 0,
 		&lv_font_simhei_14, &lv_font_simhei_22,
 		&lv_font_simhei_28, &lv_font_simhei_32);
 
-	ui.screen = lv_obj_create(NULL, NULL);
-	
+	ui.screen = lv_obj_create(lv_scr_act(), NULL);
+	lv_obj_reset_style_list(ui.screen, LV_OBJ_PART_MAIN);
+	lv_obj_set_pos(ui.screen, 0, 0);
+	lv_obj_set_size(ui.screen, LV_HOR_RES, LV_VER_RES);
 	
 }
 
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 void desktop(void)
 {
-	LV_IMG_DECLARE(desktop_home_manager);
-	LV_IMG_DECLARE(desktop_music);
-	LV_IMG_DECLARE(desktop_book);
-	LV_IMG_DECLARE(desktop_movie);
-	LV_IMG_DECLARE(desktop_clock);
 
-	LV_IMG_DECLARE(desktop_phone);
-	LV_IMG_DECLARE(desktop_setting);
-	LV_IMG_DECLARE(desktop_message);
-	LV_IMG_DECLARE(desktop_more);
 
+	/* Declare variables*/
+
+
+	/*App initialize*/
 	__self_init();
 	lv_theme_set_act(ui.theme);
 	lv_scr_load(ui.screen);
 	FLT_show_background(lv_theme_get_color_primary());
-	lv_obj_t *statusBar = FLT_show_statusbar(lv_theme_get_color_secondary(), LV_OPA_50);
-
-
-	static lv_point_t valid_pos[] = {{0,0}, {1, 0},{2, 0}};
-
 	
+	lv_obj_t *statusBar = FLT_show_statusbar(lv_theme_get_color_secondary(), LV_OPA_50);
+	task_update_statusbar= lv_task_create(FLT_update_statusBar, 1000,LV_TASK_PRIO_MID, NULL);
+	
+
+	/* create tileview on desktop */
+	static lv_point_t valid_pos[] = {{0,0}, {1, 0}};
     tileview = lv_tileview_create(lv_scr_act(), NULL);
-    lv_tileview_set_valid_positions(tileview, valid_pos, 3);
+    lv_tileview_set_valid_positions(tileview, valid_pos, 2);
     lv_tileview_set_edge_flash(tileview, false);
 	lv_tileview_set_anim_time(tileview,0);
+
 	/*
 	* Tile 1: Icon folder and adver span
 	*/
@@ -113,33 +186,37 @@ void desktop(void)
     lv_tileview_add_element(tileview, tile1);
 	
 
-
 	lv_obj_t *icon_img;
 	ui.icon1 = FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), "智能管家");
+	lv_obj_set_event_cb(ui.icon1, icon1_event_handler);
 	icon_img = lv_img_create(ui.icon1, NULL);
 	lv_img_set_src(icon_img, &desktop_home_manager);
 	lv_obj_align(icon_img, ui.icon1,LV_ALIGN_CENTER, 0, -LV_VER_RES/30);
 	lv_obj_align(ui.icon1, statusBar,LV_ALIGN_OUT_BOTTOM_LEFT, PAD_ICON, PAD_STATUS_BAR);
 
 	ui.icon2 = FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), "音乐");
+	lv_obj_set_event_cb(ui.icon2, icon2_event_handler);
 	icon_img = lv_img_create(ui.icon2, NULL);
 	lv_img_set_src(icon_img, &desktop_music);
 	lv_obj_align(icon_img, ui.icon2,LV_ALIGN_CENTER, 0, -LV_VER_RES/30);
 	lv_obj_align(ui.icon2, ui.icon1, LV_ALIGN_OUT_RIGHT_MID, PAD_ICON, 0);
 
 	ui.icon3 = FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), "阅读");
+	lv_obj_set_event_cb(ui.icon3, icon3_event_handler);
 	icon_img = lv_img_create(ui.icon3, NULL);
 	lv_img_set_src(icon_img, &desktop_book);
 	lv_obj_align(icon_img, ui.icon3,LV_ALIGN_CENTER, 0, -LV_VER_RES/30);
 	lv_obj_align(ui.icon3, ui.icon1, LV_ALIGN_OUT_BOTTOM_MID, 0, PAD_ICON);
 
 	ui.icon4 = FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), "播放器");
+	lv_obj_set_event_cb(ui.icon4, icon4_event_handler);
 	icon_img = lv_img_create(ui.icon4, NULL);
 	lv_img_set_src(icon_img, &desktop_movie);
 	lv_obj_align(icon_img, ui.icon4,LV_ALIGN_CENTER, 0, -LV_VER_RES/30);	
 	lv_obj_align(ui.icon4, ui.icon2, LV_ALIGN_OUT_BOTTOM_MID, 0, PAD_ICON);
 
 	ui.icon5 = FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), "时钟");
+	lv_obj_set_event_cb(ui.icon5, icon5_event_handler);
 	icon_img = lv_img_create(ui.icon5, NULL);
 	lv_img_set_src(icon_img, &desktop_clock);
 	lv_obj_align(icon_img, ui.icon5,LV_ALIGN_CENTER, 0, -LV_VER_RES/30);	
@@ -147,6 +224,7 @@ void desktop(void)
 
 	/*folder here*/
 	ui.folder= FLT_add_icon_lite(tile1, lv_theme_get_color_secondary(), NULL);
+	lv_obj_set_event_cb(ui.folder, folder_event_handler);
 
 		icon_img = lv_img_create(ui.folder, NULL);
 	lv_img_set_src(icon_img, &desktop_phone);
@@ -173,7 +251,7 @@ void desktop(void)
 	/* right area of tile is a ad span */
 	adver_pos0_init();
 	btn_ad_pos0 = lv_btn_create(tile1, NULL);
-	lv_obj_set_event_cb(btn_ad_pos0, btn_ad_pos1_event_handler);
+	lv_obj_set_event_cb(btn_ad_pos0, btn_ad_pos0_event_handler);
 	lv_theme_apply(btn_ad_pos0, (lv_theme_style_t)FLT_THEME_BTN);
 	lv_btn_set_fit(btn_ad_pos0, LV_FIT_NONE);
 	LV_SET_LOCAL_STYLE(radius, btn_ad_pos0, 40);
@@ -190,7 +268,7 @@ void desktop(void)
     label_ad1_pos0 = lv_label_create(tile1, NULL);
 	lv_label_set_text(label_ad1_pos0, adver_pos0[adver_pos0_index].text);
 	adver_pos0_update(NULL);
-	lv_task_create(adver_pos0_update, ADVER_POS0_REFRESH_TIME, LV_TASK_PRIO_MID, NULL);
+	task_adver_pos0 =  lv_task_create(adver_pos0_update, ADVER_POS0_REFRESH_TIME, LV_TASK_PRIO_MID, NULL);
 
     /*
 	*	Tile2: A image button with label info
@@ -216,21 +294,17 @@ void desktop(void)
 
     label_ad1_pos1 = lv_label_create(tile2, NULL);
 	adver_pos1_update(NULL);
-	lv_task_create(adver_pos1_update, ADVER_POS1_REFRESH_TIME, LV_TASK_PRIO_MID, NULL);
-
-    /*Tile3: Two image button with label info*/
-    lv_obj_t * tile3 = lv_obj_create(tileview, tile1);
-    lv_obj_set_pos(tile3, LV_HOR_RES*2, 0);
-    lv_tileview_add_element(tileview, tile3);
-
-    lv_obj_t * btn = lv_btn_create(tile3, NULL);
-    lv_obj_align(btn, NULL, LV_ALIGN_CENTER, 0, 0);
-    lv_tileview_add_element(tileview, btn);
-    lv_obj_t * label = lv_label_create(btn, NULL);
-    lv_label_set_text(label, "Tile3: a button");
+	task_adver_pos1 =  lv_task_create(adver_pos1_update, ADVER_POS1_REFRESH_TIME, LV_TASK_PRIO_MID, NULL);	
 }
 
-/* display update functions */
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 static void adver_pos0_update(lv_task_t *task){
 	printf("%d,%d\n", adver_pos0_index,lv_tick_get());
 	//lv_obj_t *btn = lv_obj_get_child_back(tile2, NULL);
@@ -286,6 +360,14 @@ static void adver_pos0_update(lv_task_t *task){
 	if(adver_pos0_index >(ADVER_POS0_SIZE-1))adver_pos0_index=0;
 }
 
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 static void adver_pos1_update(lv_task_t *task){
 	
 	printf("%d,%d\n", adver_pos1_index,lv_tick_get());
@@ -342,8 +424,14 @@ static void adver_pos1_update(lv_task_t *task){
 	if(adver_pos1_index >(ADVER_POS1_SIZE-1))adver_pos1_index=0;
 }
 
-/* other init functions */
-
+//-----------------------------------------------------------------------------
+//      @Function   :  Name of function
+//      @Description:  Just description for function
+//      @Input      :  Param inputs
+//      @Output     :  Function output
+//      @Returns    :  Result
+//      @Others     :  Others info for this function
+//-----------------------------------------------------------------------------
 static void adver_pos0_init(void)
 {
 	/*
@@ -386,6 +474,14 @@ static void adver_pos0_init(void)
 	}
 }
 
+//-----------------------------------------------------------------------------
+//      @Function   :  adver_pos1_init
+//      @Description:  initialize the assets array of pos1
+//      @Input      :  
+//      @Output     :  
+//      @Returns    :  
+//      @Others     :  
+//-----------------------------------------------------------------------------
 static void adver_pos1_init(void)
 {
 	/*
@@ -442,56 +538,68 @@ static void adver_pos1_init(void)
 	}
 }
 
-#if 0
-void tile_test(void)
+
+static void hello(void)
 {
-static lv_point_t valid_pos[] = {{0,0}, {1, 0},{2, 0}};
-    lv_obj_t *tileview;
-    tileview = lv_tileview_create(lv_scr_act(), NULL);
-    lv_tileview_set_valid_positions(tileview, valid_pos, 3);
-    lv_tileview_set_edge_flash(tileview, false);
-
-    lv_obj_t * tile1 = lv_obj_create(tileview, NULL);
-    lv_obj_set_size(tile1, LV_HOR_RES, LV_VER_RES);
-    lv_tileview_add_element(tileview, tile1);
-
-    /*Tile1: just a label*/
-    lv_obj_t * label = lv_label_create(tile1, NULL);
-    lv_label_set_text(label, "Scroll down");
-    lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, 0);
-
-    /*Tile2: a list*/
-    lv_obj_t * list = lv_list_create(tileview, NULL);
-    lv_obj_set_size(list, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_pos(list, LV_HOR_RES, 0);
-    lv_list_set_scroll_propagation(list, true);
-    lv_list_set_scrollbar_mode(list, LV_SCROLLBAR_MODE_OFF);
-
-    lv_list_add_btn(list, NULL, "One");
-    lv_list_add_btn(list, NULL, "Two");
-    lv_list_add_btn(list, NULL, "Three");
-    lv_list_add_btn(list, NULL, "Four");
-    lv_list_add_btn(list, NULL, "Five");
-    lv_list_add_btn(list, NULL, "Six");
-    lv_list_add_btn(list, NULL, "Seven");
-    lv_list_add_btn(list, NULL, "Eight");
-	
-    /*Tile3: a button*/
-    lv_obj_t * tile3 = lv_obj_create(tileview, tile1);
-    lv_obj_set_pos(tile3, LV_HOR_RES*2, 0);
-    lv_tileview_add_element(tileview, tile3);
-
-    lv_obj_t * btn = lv_btn_create(tile3, NULL);
-    lv_obj_align(btn, NULL, LV_ALIGN_CENTER, 0, 0);
-    lv_tileview_add_element(tileview, btn);
-    label = lv_label_create(btn, NULL);
-    lv_label_set_text(label, "No scroll up");
+	printf("Hello world!\n");
 }
-#endif
+
+/**********************
+** EVENT_CALL_BACK
+***********************/
+LV_EVENT_CB_DECLARE(icon1_event_handler)
+{
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, launching Smart Home Center.\n", __func__,lv_tick_get());
+	}
+}
+LV_EVENT_CB_DECLARE(icon2_event_handler)
+{
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, launching Music Player.\n", __func__,lv_tick_get());
+	}
+}
+LV_EVENT_CB_DECLARE(icon3_event_handler)
+{
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, launching Read Center.\n", __func__,lv_tick_get());
+	}
+}
+LV_EVENT_CB_DECLARE(icon4_event_handler)
+{
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, launching Movie Player.\n", __func__,lv_tick_get());
+	}
+}
+LV_EVENT_CB_DECLARE(icon5_event_handler)
+{
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, launching Clock Settings.\n", __func__,lv_tick_get());
+	}
+}
+
+LV_EVENT_CB_DECLARE(folder_event_handler)
+{
+		static const char *btns[] = {"Ok", "Cancel", ""};
+		if (e == LV_EVENT_CLICKED){
+		printf("%s, %d, Openning Apps Folder.\n", __func__,lv_tick_get());
+
+		FLT_show_folder_content(obj, "更多应用",NULL);
+	}
+}
+
+
+
 LV_EVENT_CB_DECLARE(btn_ad_pos0_event_handler)
 {
+	// int res;
 	if (e == LV_EVENT_CLICKED){
-		printf("%d\n", lv_tick_get());
+		printf("%s, %d\n", __func__,lv_tick_get());
+		// hello();
+		// res = execl("/bin/mplayer", "mplayer", "-nosound", "/root/test2.mp4", (char *)0);
+		// if(res < 0){
+		// 	exit(-1);
+		// }
 	}
 }
 

@@ -84,6 +84,8 @@ int main()
     //lv_ex_style_9();
     //lv_ex_style_10();
     //lv_ex_style_11();
+    //lv_ex_win_1();
+    //lv_ex_msgbox_2();
 
     /*
      * There are many examples of individual widgets found under the

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "applications.h": "c",
+        "utils.h": "c",
+        "lvgl.h": "c"
+    }
+}
