@@ -19,6 +19,7 @@ typedef struct {
 #elif defined(__linux__)
 #define PLATFORM_LINUX	 1 //Linux平台
 #include <unistd.h>
+#include <sys/time.h>
 #include <time.h>
 #elif defined(__APPLE__) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_MAC)
 #define PLATFORM_IOS	 1 //iOS、Mac平台

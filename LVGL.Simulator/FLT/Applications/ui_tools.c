@@ -56,13 +56,13 @@ static lv_obj_t *folder_content;
 LV_IMG_DECLARE(status_bar_wifi);
 LV_IMG_DECLARE(status_bar_wifi_off);
 
-static ptime_s time = NULL;
+static ptime_s ui_time = NULL;
 static uint32_t tic;
 
 void FLT_ui_tools_init(void)
 {
 	tic = lv_tick_get();
-	time = (ptime_s)malloc(sizeof(time_s));
+	ui_time = (ptime_s)malloc(sizeof(time_s));
 
 	lv_style_init(&style_modal);
 	lv_style_set_bg_color(&style_modal, LV_STATE_DEFAULT, LV_COLOR_BLACK);
@@ -85,7 +85,7 @@ void FLT_ui_tools_init(void)
 
 lv_obj_t *FLT_show_statusbar(lv_color_t color, uint8_t opa)
 {
-	FLT_get_time_now(time); 
+	FLT_get_time_now(ui_time); 
 	/*Left consist of
 	time 
 	show apps icon when apps notice come
@@ -108,7 +108,7 @@ lv_obj_t *FLT_show_statusbar(lv_color_t color, uint8_t opa)
 	label_time = lv_label_create(statusBar, NULL);
 	lv_obj_set_style_local_text_font(label_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_theme_get_font_title());
 	lv_obj_set_style_local_text_color(label_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
-	lv_label_set_text_fmt(label_time, "%02d:%02d:%02d",time->hour, time->minute, time->second);
+	lv_label_set_text_fmt(label_time, "%02d:%02d:%02d",ui_time->hour, ui_time->minute, ui_time->second);
 	lv_obj_align(label_time,statusBar, LV_ALIGN_IN_LEFT_MID, 20, 0);
 
 	wifi_icon = lv_img_create(statusBar, NULL);
@@ -121,13 +121,13 @@ lv_obj_t *FLT_show_statusbar(lv_color_t color, uint8_t opa)
 
 void FLT_update_statusBar(lv_task_t *task)
 {
-	if(NULL == time){
+	if(NULL == ui_time){
 		printf("Geting time from local");
-		FLT_get_time_now(time);
+		FLT_get_time_now(ui_time);
 	}
 
-	FLT_get_time_elapsed(time);
-	lv_label_set_text_fmt(label_time, "%02d:%02d:%02d", time->hour, time->minute, time->second);
+	FLT_get_time_elapsed(ui_time);
+	lv_label_set_text_fmt(label_time, "%02d:%02d:%02d", ui_time->hour, ui_time->minute, ui_time->second);
 
 	lv_img_set_src(wifi_icon, &status_bar_wifi);
 }
@@ -216,6 +216,17 @@ lv_obj_t* FLT_add_icon(lv_obj_t* parent, const void* src_img, const char* txt)
 	}
 
     return bg;
+}
+
+lv_obj_t *FLT_add_control_bar(lv_obj_t* parent, lv_coord_t width, lv_coord_t height)
+{
+	lv_obj_t *control_bar = lv_obj_create(parent, NULL);
+	lv_theme_apply(control_bar, (lv_theme_style_t)FLT_THEME_BOX);
+	LV_SET_LOCAL_STYLE(bg_color, control_bar, LV_COLOR_WHITE);
+	lv_obj_set_size(control_bar, width,height);
+	lv_obj_align(control_bar, parent, LV_ALIGN_IN_TOP_LEFT, 30, 50);
+
+	return control_bar;
 }
 
 lv_obj_t *FLT_add_adver(lv_obj_t* parent)

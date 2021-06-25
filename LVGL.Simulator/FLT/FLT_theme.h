@@ -28,8 +28,10 @@ extern "C" {
 *      TYPEDEFS
 **********************/
 typedef enum {
-    FLT_THEME_ICON,
+    FLT_THEME_ICON=1,
     FLT_THEME_BTN,
+    FLT_THEME_BOX,
+    FLT_THEME_LABEL_TITLE,
 }FLT_theme_t;
 
 /**********************

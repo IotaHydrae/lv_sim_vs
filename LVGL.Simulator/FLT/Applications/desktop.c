@@ -1,7 +1,6 @@
 #include "utils.h"
 #include "ui_tools.h"
 #include "./Applications.h"
-#include "../../lv_examples/lv_examples.h"
 //-----------------------------------------------------------------------------
 //      Copyright © 2021 jensenhua. All rights reserved
 //

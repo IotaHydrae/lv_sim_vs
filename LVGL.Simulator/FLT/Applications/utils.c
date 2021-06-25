@@ -18,7 +18,14 @@ void FLT_get_time_now(ptime_s time)
     time->second = sys.wSecond;
 
     #elif defined(PLATFORM_LINUX)
+    struct timeval tv;
+    struct tm tm_res;
 
+    gettimeofday(&tv, NULL);
+    localtime_r(&tv.tv_sec, &tm_res);
+    time->hour=tm_res.tm_hour;
+    time->minute=tm_res.tm_min;
+    time->second=tm_res.tm_sec;
     #endif
     
 }

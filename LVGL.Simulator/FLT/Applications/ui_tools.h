@@ -25,6 +25,7 @@ void FLT_update_statusBar(lv_task_t *task);
 void FLT_show_background(lv_color_t color);
 lv_obj_t* FLT_add_icon(lv_obj_t* parent, const void* src_img, const char* txt);
 lv_obj_t *FLT_add_icon_lite(lv_obj_t* parent, lv_color_t bg_color, const char* txt);
+lv_obj_t *FLT_add_control_bar(lv_obj_t* parent, lv_coord_t width, lv_coord_t height);
 void FLT_show_messagebox(char *text, 
 								const char **btns, 
 								uint16_t width, uint16_t height,

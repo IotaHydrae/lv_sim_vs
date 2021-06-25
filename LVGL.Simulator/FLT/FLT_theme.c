@@ -56,33 +56,12 @@ static void theme_apply(lv_obj_t* obj, lv_theme_style_t name);
 *  STATIC VARIABLES
 **********************/
 static lv_theme_t theme;
-
-static lv_style_t style_pad;
-static lv_style_t style_circle;
-
-static lv_style_t style_bg;
 static lv_style_t style_box;
-static lv_style_t style_box_border;
 static lv_style_t style_btn;
-static lv_style_t style_btn_border;
-static lv_style_t style_title;
-static lv_style_t style_label_white;
-static lv_style_t style_back;
 static lv_style_t style_icon;
-static lv_style_t style_bar_indic;
-static lv_style_t style_slider_knob;
-static lv_style_t style_scrollbar;
-static lv_style_t style_list_btn;
-static lv_style_t style_ddlist_list;
-static lv_style_t style_ddlist_selected;
-static lv_style_t style_sw_bg;
-static lv_style_t style_sw_indic;
-static lv_style_t style_sw_knob;
-static lv_style_t style_arc_bg;
-static lv_style_t style_arc_indic;
+static lv_style_t style_label_tile;
 
-static lv_style_t style_top_view;
-static lv_style_t style_top_img;
+
 /**********************
 *      MACROS
 **********************/
@@ -98,46 +77,35 @@ static lv_style_t style_top_img;
 static void basic_init(void)
 {
     lv_style_init(&style_icon);
-    lv_style_set_text_color(&style_icon, LV_STATE_DEFAULT, LV_COLOR_WHITE);
-    lv_style_set_transform_zoom(&style_icon, LV_STATE_PRESSED, 245);
-    lv_style_set_transition_time(&style_icon, LV_STATE_DEFAULT, 100);
-    lv_style_set_transition_delay(&style_icon, LV_STATE_PRESSED, 0);
-    lv_style_set_transition_delay(&style_icon, LV_STATE_DEFAULT, 70);
-    lv_style_set_transition_prop_1(&style_icon, LV_STATE_DEFAULT, LV_STYLE_TRANSFORM_ZOOM);
+    // lv_style_set_text_color(&style_icon, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+    // lv_style_set_transform_zoom(&style_icon, LV_STATE_PRESSED, 245);
+    // lv_style_set_transition_time(&style_icon, LV_STATE_DEFAULT, 100);
+    // lv_style_set_transition_delay(&style_icon, LV_STATE_PRESSED, 0);
+    // lv_style_set_transition_delay(&style_icon, LV_STATE_DEFAULT, 70);
+    // lv_style_set_transition_prop_1(&style_icon, LV_STATE_DEFAULT, LV_STYLE_TRANSFORM_ZOOM);
 
     lv_style_init(&style_btn);
-    lv_style_set_radius(&style_btn, LV_STATE_DEFAULT, 10);
-    lv_style_set_bg_opa(&style_btn, LV_STATE_DEFAULT, LV_OPA_COVER);
-    lv_style_set_bg_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_SECONDARY);
-    lv_style_set_bg_color(&style_btn, LV_STATE_PRESSED, lv_color_darken(FLT_COLOR_SECONDARY, LV_OPA_20));
-    lv_style_set_text_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_FONT_GRAY);
-    lv_style_set_value_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_FONT_GRAY);
-    lv_style_set_pad_top(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
-    lv_style_set_pad_bottom(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
-    lv_style_set_pad_left(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
-    lv_style_set_pad_right(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
+    // lv_style_set_radius(&style_btn, LV_STATE_DEFAULT, 10);
+    // lv_style_set_bg_opa(&style_btn, LV_STATE_DEFAULT, LV_OPA_COVER);
+    // lv_style_set_bg_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_SECONDARY);
+    // lv_style_set_bg_color(&style_btn, LV_STATE_PRESSED, lv_color_darken(FLT_COLOR_SECONDARY, LV_OPA_20));
+    // lv_style_set_text_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_FONT_GRAY);
+    // lv_style_set_value_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_FONT_GRAY);
+    // lv_style_set_pad_top(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
+    // lv_style_set_pad_bottom(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
+    // lv_style_set_pad_left(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
+    // lv_style_set_pad_right(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
+
+    lv_style_init(&style_box);
+    lv_style_set_radius(&style_box, LV_STATE_DEFAULT, 10);
+    lv_style_set_bg_opa(&style_box, LV_STATE_DEFAULT, LV_OPA_COVER);
+    lv_style_set_bg_color(&style_box, LV_STATE_DEFAULT, FLT_COLOR_SECONDARY);
+
+    lv_style_init(&style_label_tile);
+    lv_style_set_text_color(&style_label_tile, LV_STATE_DEFAULT, LV_COLOR_SILVER);
+    
 }
 
-static void theme_apply(lv_obj_t* obj, lv_theme_style_t name)
-{
-    lv_style_list_t *list;
-
-    uint32_t name_int = (uint32_t)name;
-
-    switch (name_int){
-        case FLT_THEME_ICON:
-            lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
-            list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
-            _lv_style_list_add_style(list, &style_icon);
-
-        case FLT_THEME_BTN:
-            lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
-            list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
-            _lv_style_list_add_style(list, &style_btn);
-    }
-
-
-}
 
 /**
  * Initialize the default
@@ -168,5 +136,49 @@ lv_theme_t* FLT_theme_init(lv_color_t color_primary, lv_color_t color_secondary,
 
     return &theme;
 }
+
+static void theme_apply(lv_obj_t* obj, lv_theme_style_t name)
+{
+    lv_style_list_t * list;
+
+    /*To avoid warnings*/
+    uint32_t name_int = (uint32_t) name;
+    switch(name_int) {
+
+        case LV_THEME_NONE:
+            break;
+
+        // case FLT_THEME_ICON:
+        //     lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
+        //     list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
+        //     _lv_style_list_add_style(list, &style_icon);
+        //     break;
+
+        // case FLT_THEME_BTN:
+        //     lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
+        //     list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
+        //     _lv_style_list_add_style(list, &style_btn);
+        //     break;
+
+        case FLT_THEME_BOX:
+            lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
+            list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
+            _lv_style_list_add_style(list, &style_box);
+            break;
+        
+        case FLT_THEME_LABEL_TITLE:
+            lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
+            list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
+            _lv_style_list_add_style(list, &style_label_tile);
+            break;
+
+        default:
+            break;
+    }
+
+    lv_obj_refresh_style(obj, LV_OBJ_PART_ALL, LV_STYLE_PROP_ALL);
+
+}
+
 
 
