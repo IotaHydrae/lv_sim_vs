@@ -23,6 +23,9 @@ extern "C" {
 #define FLT_COLOR_PRIMARY   lv_color_make(1, 1, 1)
 #define FLT_COLOR_SECONDARY lv_color_make(46, 47, 51)
 #define FLT_COLOR_FONT_GRAY lv_color_make(185, 185, 185)
+
+#define FLT_COLOR_THEME_DARK_IRON_GRAY lv_color_make(38, 36, 38)
+#define FLT_COLOR_THEME_DARK_GRAY lv_color_make(179, 178, 175)
     
 /**********************
 *      TYPEDEFS

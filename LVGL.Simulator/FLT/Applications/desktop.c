@@ -550,6 +550,8 @@ static void hello(void)
 LV_EVENT_CB_DECLARE(icon1_event_handler)
 {
 		if (e == LV_EVENT_CLICKED){
+		FLT_taskkill(task_update_statusbar);
+
 		printf("%s, %d, launching Smart Home Center.\n", __func__,lv_tick_get());
 		smart_manager();
 	}

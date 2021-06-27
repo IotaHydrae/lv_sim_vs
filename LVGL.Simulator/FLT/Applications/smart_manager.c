@@ -1,4 +1,4 @@
-#include "utils.h"
+﻿#include "utils.h"
 #include "ui_tools.h"
 
 //-----------------------------------------------------------------------------
@@ -91,7 +91,7 @@ void smart_manager(void)
 	__self_init();
 	lv_theme_set_act(ui.theme);
 	lv_scr_load(ui.screen);
-	FLT_show_background(lv_theme_get_color_primary());
+	FLT_show_background(LV_COLOR_BLACK);
 	
 	lv_obj_t *statusBar = FLT_show_statusbar(lv_theme_get_color_secondary(), LV_OPA_50);
 	lv_task_create(FLT_update_statusBar, 1000,LV_TASK_PRIO_MID, NULL);
@@ -113,11 +113,11 @@ void smart_manager(void)
 	lv_obj_t *main_box = lv_obj_create(tile1, NULL);
 	lv_theme_apply(main_box, (lv_theme_style_t)FLT_THEME_BOX);
 	lv_obj_set_size(main_box, LV_HOR_RES/1.1, LV_VER_RES/1.2);
-	lv_obj_align(main_box, statusBar, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
+	lv_obj_align(main_box, statusBar, LV_ALIGN_OUT_BOTTOM_MID, 0, 15);
 
 	/* title */
 	lv_obj_t *label_main_box = lv_label_create(main_box, NULL);
-	lv_label_set_text(label_main_box, "设备");
+	lv_label_set_text(label_main_box, "智能设备");
 	lv_theme_apply(label_main_box, (lv_theme_style_t)FLT_THEME_LABEL_TITLE);
 	lv_obj_align(label_main_box, main_box, LV_ALIGN_IN_TOP_MID, 0, 10);
 	LV_SET_LOCAL_STYLE(text_font, label_main_box, lv_theme_get_font_title());
@@ -128,6 +128,46 @@ void smart_manager(void)
 	// LV_SET_LOCAL_STYLE(bg_color, air_control_bar, LV_COLOR_WHITE);
 	// lv_obj_set_size(air_control_bar, lv_obj_get_width(main_box)/3,lv_obj_get_height(main_box)/5);
 	// lv_obj_align(air_control_bar, main_box, LV_ALIGN_IN_TOP_LEFT, 30, 50);
-	lv_obj_t *air_control_bar = FLT_add_control_bar(main_box, lv_obj_get_width(main_box)/3,lv_obj_get_height(main_box)/5);
-	lv_obj_align(air_control_bar, main_box, LV_ALIGN_IN_TOP_LEFT, 30, 50);
-}
+	lv_obj_t *air_control_bar = FLT_add_control_bar(main_box,
+                                                    lv_obj_get_width(main_box)/3,
+                                                    lv_obj_get_height(main_box)/5);
+	lv_obj_t *label_air_control_bar = lv_label_create(air_control_bar,NULL);
+	lv_label_set_text(label_air_control_bar, "空调");
+	lv_obj_align(label_air_control_bar, air_control_bar, 
+				LV_ALIGN_IN_TOP_LEFT, 10, 10);
+
+	LV_SET_LOCAL_STYLE(text_color, label_air_control_bar, LV_COLOR_WHITE);			
+	LV_SET_LOCAL_STYLE(text_font, label_air_control_bar, lv_theme_get_font_normal());
+
+	lv_obj_align(air_control_bar, main_box, LV_ALIGN_IN_TOP_LEFT, 30, 70);
+
+    lv_obj_t* heating_control_bar = FLT_add_control_bar(main_box,
+                                                        lv_obj_get_width(main_box) / 3,
+                                                        lv_obj_get_height(main_box) / 5);
+    lv_obj_align(heating_control_bar, air_control_bar,
+        LV_ALIGN_OUT_BOTTOM_MID, 0, lv_obj_get_height(air_control_bar)/3);
+
+    lv_obj_t* refrigerator_control_bar = FLT_add_control_bar(main_box,
+                                                            lv_obj_get_width(main_box) / 3,
+                                                            lv_obj_get_height(main_box) / 5);
+    lv_obj_align(refrigerator_control_bar, heating_control_bar,
+        LV_ALIGN_OUT_BOTTOM_MID, 0, lv_obj_get_height(heating_control_bar) / 3);
+
+    lv_obj_t* washing_control_bar = FLT_add_control_bar(main_box,
+        lv_obj_get_width(main_box) / 2,
+        lv_obj_get_height(main_box) / 2);
+    lv_obj_align(washing_control_bar, main_box,
+        LV_ALIGN_IN_TOP_RIGHT, -30, 70);
+
+    lv_obj_t* light_control_bar_1 = FLT_add_control_bar(main_box,
+        lv_obj_get_width(main_box) / 4.5,
+        lv_obj_get_height(main_box) / 5);
+    lv_obj_align(light_control_bar_1, washing_control_bar,
+        LV_ALIGN_OUT_BOTTOM_LEFT, 0, lv_obj_get_height(heating_control_bar) / 4);
+
+    lv_obj_t* light_control_bar_2 = FLT_add_control_bar(main_box,
+        lv_obj_get_width(main_box) / 4.5,
+        lv_obj_get_height(main_box) / 5);
+    lv_obj_align(light_control_bar_2, washing_control_bar,
+        LV_ALIGN_OUT_BOTTOM_RIGHT, 0, lv_obj_get_height(heating_control_bar) / 4);
+}   

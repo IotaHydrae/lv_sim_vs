@@ -1,4 +1,4 @@
-#include "ui_tools.h"
+﻿#include "ui_tools.h"
 
 //-----------------------------------------------------------------------------
 //      Copyright © 2021 jensenhua. All rights reserved
@@ -122,7 +122,7 @@ lv_obj_t *FLT_show_statusbar(lv_color_t color, uint8_t opa)
 void FLT_update_statusBar(lv_task_t *task)
 {
 	if(NULL == ui_time){
-		printf("Geting time from local");
+		printf("Getting time from local");
 		FLT_get_time_now(ui_time);
 	}
 
@@ -222,9 +222,8 @@ lv_obj_t *FLT_add_control_bar(lv_obj_t* parent, lv_coord_t width, lv_coord_t hei
 {
 	lv_obj_t *control_bar = lv_obj_create(parent, NULL);
 	lv_theme_apply(control_bar, (lv_theme_style_t)FLT_THEME_BOX);
-	LV_SET_LOCAL_STYLE(bg_color, control_bar, LV_COLOR_WHITE);
-	lv_obj_set_size(control_bar, width,height);
-	lv_obj_align(control_bar, parent, LV_ALIGN_IN_TOP_LEFT, 30, 50);
+	LV_SET_LOCAL_STYLE(bg_color, control_bar, lv_theme_get_color_secondary());
+	lv_obj_set_size(control_bar, width, height);
 
 	return control_bar;
 }

@@ -34,5 +34,5 @@ typedef struct {
 /*prototype*/
 void FLT_get_time_now(ptime_s time) ;
 void FLT_get_time_elapsed(ptime_s time);
-inline void FLT_taskkill(lv_task_t *task);
+#define FLT_taskkill(task) lv_task_del(task)
 #endif 

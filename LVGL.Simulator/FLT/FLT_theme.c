@@ -50,16 +50,16 @@
 /**********************
 *  STATIC PROTOTYPES
 **********************/
-static void theme_apply(lv_obj_t* obj, lv_theme_style_t name);
+static void dark_theme_apply(lv_obj_t* obj, lv_theme_style_t name);
 
 /**********************
 *  STATIC VARIABLES
 **********************/
 static lv_theme_t theme;
-static lv_style_t style_box;
-static lv_style_t style_btn;
-static lv_style_t style_icon;
-static lv_style_t style_label_tile;
+static lv_style_t flt_dark_theme_style_box;
+static lv_style_t flt_dark_theme_style_btn;
+static lv_style_t flt_dark_theme_style_icon;
+static lv_style_t flt_dark_theme_style_label_tile;
 
 
 /**********************
@@ -76,7 +76,7 @@ static lv_style_t style_label_tile;
 */
 static void basic_init(void)
 {
-    lv_style_init(&style_icon);
+    lv_style_init(&flt_dark_theme_style_icon);
     // lv_style_set_text_color(&style_icon, LV_STATE_DEFAULT, LV_COLOR_WHITE);
     // lv_style_set_transform_zoom(&style_icon, LV_STATE_PRESSED, 245);
     // lv_style_set_transition_time(&style_icon, LV_STATE_DEFAULT, 100);
@@ -84,7 +84,7 @@ static void basic_init(void)
     // lv_style_set_transition_delay(&style_icon, LV_STATE_DEFAULT, 70);
     // lv_style_set_transition_prop_1(&style_icon, LV_STATE_DEFAULT, LV_STYLE_TRANSFORM_ZOOM);
 
-    lv_style_init(&style_btn);
+    lv_style_init(&flt_dark_theme_style_btn);
     // lv_style_set_radius(&style_btn, LV_STATE_DEFAULT, 10);
     // lv_style_set_bg_opa(&style_btn, LV_STATE_DEFAULT, LV_OPA_COVER);
     // lv_style_set_bg_color(&style_btn, LV_STATE_DEFAULT, FLT_COLOR_SECONDARY);
@@ -96,13 +96,22 @@ static void basic_init(void)
     // lv_style_set_pad_left(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
     // lv_style_set_pad_right(&style_btn, LV_STATE_DEFAULT, LV_VER_RES / 40);
 
-    lv_style_init(&style_box);
-    lv_style_set_radius(&style_box, LV_STATE_DEFAULT, 10);
-    lv_style_set_bg_opa(&style_box, LV_STATE_DEFAULT, LV_OPA_COVER);
-    lv_style_set_bg_color(&style_box, LV_STATE_DEFAULT, FLT_COLOR_SECONDARY);
+    lv_style_init(&flt_dark_theme_style_box);
+    lv_style_set_radius(&flt_dark_theme_style_box, LV_STATE_DEFAULT, 10);
 
-    lv_style_init(&style_label_tile);
-    lv_style_set_text_color(&style_label_tile, LV_STATE_DEFAULT, LV_COLOR_SILVER);
+    lv_style_set_shadow_color(&flt_dark_theme_style_box, LV_STATE_DEFAULT, FLT_COLOR_THEME_DARK_IRON_GRAY);
+    lv_style_set_shadow_opa(&flt_dark_theme_style_box, LV_STATE_DEFAULT, LV_OPA_50);
+    lv_style_set_shadow_spread(&flt_dark_theme_style_box, LV_STATE_DEFAULT, LV_STYLE_SHADOW_SPREAD);
+    
+    lv_style_set_border_width(&flt_dark_theme_style_box, LV_STATE_FOCUSED, 2);
+    lv_style_set_border_color(&flt_dark_theme_style_box, LV_STATE_FOCUSED, LV_COLOR_WHITE);
+
+
+    lv_style_set_bg_opa(&flt_dark_theme_style_box, LV_STATE_DEFAULT, LV_OPA_COVER);
+    lv_style_set_bg_color(&flt_dark_theme_style_box, LV_STATE_DEFAULT, FLT_COLOR_THEME_DARK_IRON_GRAY);
+
+    lv_style_init(&flt_dark_theme_style_label_tile);
+    lv_style_set_text_color(&flt_dark_theme_style_label_tile, LV_STATE_DEFAULT, LV_COLOR_SILVER);
     
 }
 
@@ -132,12 +141,12 @@ lv_theme_t* FLT_theme_init(lv_color_t color_primary, lv_color_t color_secondary,
     theme.flags = flags;
 
     basic_init();
-    theme.apply_xcb = theme_apply;
+    theme.apply_xcb = dark_theme_apply;
 
     return &theme;
 }
 
-static void theme_apply(lv_obj_t* obj, lv_theme_style_t name)
+static void dark_theme_apply(lv_obj_t* obj, lv_theme_style_t name)
 {
     lv_style_list_t * list;
 
@@ -161,15 +170,15 @@ static void theme_apply(lv_obj_t* obj, lv_theme_style_t name)
         //     break;
 
         case FLT_THEME_BOX:
-            lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
-            list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
-            _lv_style_list_add_style(list, &style_box);
+            lv_obj_clean_style_list(obj, LV_OBJ_PART_MAIN);
+            list = lv_obj_get_style_list(obj, LV_CONT_PART_MAIN);
+            _lv_style_list_add_style(list, &flt_dark_theme_style_box);
             break;
         
         case FLT_THEME_LABEL_TITLE:
             lv_obj_clean_style_list(obj,LV_OBJ_PART_MAIN);
             list = lv_obj_get_style_list(obj, LV_OBJ_PART_MAIN);
-            _lv_style_list_add_style(list, &style_label_tile);
+            _lv_style_list_add_style(list, &flt_dark_theme_style_label_tile);
             break;
 
         default:
