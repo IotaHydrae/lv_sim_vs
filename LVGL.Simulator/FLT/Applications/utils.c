@@ -57,3 +57,59 @@ inline void FLT_taskkill_all(void)
 {
 
 }
+
+single_node *FLT_create_list_node(int data)
+{
+    single_node *node = NULL;
+    node = (single_node *)malloc(sizeof(single_node));
+    memset(node, 0, sizeof(single_node));
+    if(node==NULL){
+        fprintf(stderr, "malloc error\n");
+    }
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+void FLT_list_insert_node_tail(single_node *head, single_node *new)
+{
+    single_node *p = head;
+    while(NULL!=p->next){
+        p=p->next;
+    }
+    p->next=new;
+}
+
+void FLT_list_insert_node_head(single_node *head, single_node *new)
+{
+    single_node *p = head;
+    new->next = p->next;
+    p->next = new;
+}
+
+void FLT_list_foreach(single_node *head)
+{
+    single_node *p = head;
+    while(NULL!=p){
+        printf("%d\n", p->data);
+        p=p->next;
+    }
+}
+
+void FLT_list_find_node_by_name()
+{
+
+}
+/*
+FLT device list opreations
+create device node 
+insert node 
+delete node
+replace node
+printall foreach
+find node by properties
+*/
+
+/*
+    Network utils
+*/

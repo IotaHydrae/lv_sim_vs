@@ -35,6 +35,7 @@ typedef enum {
     FLT_THEME_BTN,
     FLT_THEME_BOX,
     FLT_THEME_LABEL_TITLE,
+    FLT_THEME_SILDER
 }FLT_theme_t;
 
 /**********************

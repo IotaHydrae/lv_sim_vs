@@ -137,7 +137,7 @@ void FLT_show_background(lv_color_t color)
 	lv_obj_t *bg = lv_obj_create(lv_scr_act(), NULL);
 	lv_obj_clean_style_list(bg, LV_OBJ_PART_MAIN);
 	lv_obj_set_style_local_bg_opa(bg, LV_OBJ_PART_MAIN,
-		LV_STATE_DEFAULT, LV_OPA_COVER);
+		LV_STATE_DEFAULT, LV_OPA_90);
 
 	lv_obj_set_style_local_bg_color(bg, LV_OBJ_PART_MAIN,
 		LV_STATE_DEFAULT, color);

@@ -27,12 +27,16 @@ typedef struct {
 #define PLATFORM_UNKNOWN 1
 #endif
 
-/*  */
+/* common include */
 #include <stdint.h>
 #include <stdlib.h>
 
 /*prototype*/
 void FLT_get_time_now(ptime_s time) ;
 void FLT_get_time_elapsed(ptime_s time);
+single_node *FLT_create_list_node(int data);
+void FLT_list_insert_node_tail(single_node *head, single_node *new);
+void FLT_list_insert_node_head(single_node *head, single_node *new);
+void FLT_list_foreach(single_node *head);
 #define FLT_taskkill(task) lv_task_del(task)
 #endif 
